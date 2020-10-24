@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 
+import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +29,7 @@ import { TableComponent } from './project/project-view/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { TaskDialogComponent } from './project/project-view/task-dialog/task-dialog.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { ToastrModule } from 'ngx-toastr';
 
 
 const routes = [
@@ -93,7 +95,9 @@ const routes = [
     MatButtonModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
