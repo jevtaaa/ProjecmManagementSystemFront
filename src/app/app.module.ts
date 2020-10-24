@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,39 +30,8 @@ import { MatTableModule } from '@angular/material/table';
 import { TaskDialogComponent } from './project/project-view/task-dialog/task-dialog.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptor } from './guards/auth.interceptor';
 
-
-const routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    children: [
-      {
-        path: 'project',
-        children: [
-          {
-            path: '',
-            component: ProjectComponent
-          },
-          {
-            path: ':id',
-            component: ProjectViewComponent
-          }
-        ]
-
-      }
-    ]
-  }
-]
 
 @NgModule({
   declarations: [
@@ -94,12 +63,15 @@ const routes = [
     MatIconModule,
     MatButtonModule,
     MDBBootstrapModule.forRoot(),
-    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

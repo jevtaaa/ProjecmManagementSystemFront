@@ -10,7 +10,10 @@
             <a routerLink="user">Users</a>
         </div>
         <div class="col-lg-1 offset-lg-8">
-            <a routerLink="/login">Logout</a>
+            <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
+                <mat-icon>logout</mat-icon>
+                Log Out
+              </button>
         </div>
     </div>
 </div>

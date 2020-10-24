@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    if (localStorage.getItem('token') != null) {
+      this.router.navigateByUrl('/home');
+    }
   }
 
   getErrorMessagePassword() {
@@ -36,7 +39,6 @@ export class LoginComponent implements OnInit {
       if(data==null){
         return;
       }
-      this.authService.isAuth = true;
       localStorage.setItem('token', data.token);
       data.token = null;
       this.authService.loggedUser = plainToClass(User, data);

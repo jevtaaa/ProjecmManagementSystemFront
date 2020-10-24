@@ -7,7 +7,6 @@ import { User } from '../model/user.model';
     providedIn: 'root',
 })
 export class AuthService {
-    isAuth = false;
     loggedUser: User;
 
     constructor(private http: HttpClient, private router: Router) {
@@ -23,10 +22,13 @@ export class AuthService {
     }
 
     logOut() {
-        localStorage.clear();
+        localStorage.removeItem('token');
         this.loggedUser = null;
-        this.isAuth = false;
         this.router.navigateByUrl('/login');
+    }
+
+    isAuth() {
+        return localStorage.getItem('token') != null;
     }
 
 
