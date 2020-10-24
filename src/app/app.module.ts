@@ -65,7 +65,8 @@ import { AuthInterceptor } from './guards/auth.interceptor';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
