@@ -1,0 +1,40 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>
+            {{project.project_name}}
+             
+             
+            </mat-card-title>
+        <mat-card-subtitle>{{project.project_manager}}</mat-card-subtitle>
+        <span class="example-spacer"></span>
+        <a [routerLink]="project.id"><mat-icon >visibility</mat-icon></a>
+        
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title >
+                        Tasks
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Number of tasks: {{project.tasks.length}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-toolbar *ngFor="let task of project.tasks; let i=index">
+                   
+                    <span style="margin-right: 5px;">{{i+1}}.</span>
+                    <span>Ime taska</span>
+                    <span class="example-spacer"></span>
+                    <mat-progress-bar id="progressBar" mode="determinate" [value]="task.progress"></mat-progress-bar>
+                    <span>{{task.progress}}%</span>
+                </mat-toolbar>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+</mat-card>

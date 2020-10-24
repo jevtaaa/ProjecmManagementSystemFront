@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="taskForm">
+
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Task name</mat-label>
+                    <input formControlName="task_name" matInput placeholder="">
+                    <mat-error *ngIf="taskForm.get('task_name').invalid">Please enter task name</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="combobox">
+                    <mat-label>Project manager</mat-label>
+                    <mat-select formControlName="assignee">
+                        <mat-option *ngFor="let manager of managers" [value]="manager">
+                            {{manager}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status">
+                            {{status| titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                Progress
+                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100" [value]="data.task.progress"></mat-slider>
+                <mat-form-field  appearance="standard">
+                    <mat-label>Deadline</mat-label>
+                    <input formControlName="task_deadline" matInput placeholder="">
+                    <mat-error *ngIf="taskForm.get('task_deadline').invalid">Please enter task deadline</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="outline" >
+                    <mat-label>Description</mat-label>
+                    <textarea formControlName="description" matInput
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="5"
+                              cdkAutosizeMaxRows="5"></textarea>
+                  </mat-form-field>
+
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col text-right"> 
+            <button mat-button color="warn" (click)="deleteTask()">Delete</button>
+            <button mat-button color="primary" (click)="updateTask()">Save changes</button>
+        </div>
+    </div>
+</div>

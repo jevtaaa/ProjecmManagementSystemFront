@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 offset-lg-5" style="text-align: center;">
+            <h2>Login</h2>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-lg-2 offset-lg-5">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Enter your username</mat-label>
+                    <input formControlName="username" matInput placeholder="jevta">
+                    <mat-error *ngIf="loginForm.get('username').invalid">Please enter your username</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="standard">
+                    <mat-label>Enter your password</mat-label>
+                    <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'">
+                    <mat-error *ngIf="loginForm.get('password').invalid">{{getErrorMessagePassword()}}</mat-error>
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <div class="row">
+                    <div class="col text-center">
+                        <button mat-stroked-button color="primary" type="submit">
+                            Sign in
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
