@@ -29,6 +29,9 @@ const routes: Routes = [
             path: '',
             component: ProjectComponent,
             canActivate: [AuthGuard],
+            data: {
+              permittedRoles: ['Admin']
+            }
           },
           {
             path: ':id',

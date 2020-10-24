@@ -25,6 +25,15 @@ import { AuthService } from '../login/auth.service';
         | boolean
         | UrlTree {
         if (localStorage.getItem('token') != null) {
+          let roles = next.data['permittedRoles'] as Array<string>;
+          if(roles){
+            if(this.authServ.roleMatch(roles)){
+              return true;
+            }else{
+              console.log("YOU DONT HAVE PERMISSION");
+              return false;
+            }
+          }
           return true;
         } else {
           return this.router.navigateByUrl('/login');

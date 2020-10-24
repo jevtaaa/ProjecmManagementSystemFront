@@ -31,5 +31,16 @@ export class AuthService {
         return localStorage.getItem('token') != null;
     }
 
+    roleMatch(allowedRoles): boolean {
+        var isMatch = false;
+        var playload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        var userRole = playload.role;
+        allowedRoles.forEach(element => {
+            if(userRole == element){
+                isMatch = true;
+            }
+        });
+        return isMatch;
+    }
 
 }
