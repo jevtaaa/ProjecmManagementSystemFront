@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
 
 
   project: Project;
-  columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'remove'];
+  columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'edit', 'remove'];
   expandedElement: Task | null;
 
 

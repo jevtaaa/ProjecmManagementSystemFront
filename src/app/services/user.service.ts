@@ -28,18 +28,20 @@ export class UserService {
     }
 
     this.getAllUsers().subscribe((data:User[])=>{
-      
+      const devs: User[]=[];
+      const pms: User[]=[];
       for(let user of data){
-        if(user.role ==='Developer'){
-          this.developers.push(plainToClass(User, user));
+        if(user.role ==='Developer'){    
+          devs.push(plainToClass(User, user));
           continue;
         }
-
-        if(user.role ==='ProjectManager'){
-          this.projectManagers.push(plainToClass(User, user));
+        if(user.role ==='ProjectManager'){    
+          pms.push(plainToClass(User, user));
           continue;
         }
       }
+      this.developers = devs;
+      this.projectManagers = pms;
 
     }, err =>{
       console.log(err);

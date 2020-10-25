@@ -12,11 +12,11 @@
         <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin'])">
             <a routerLink="users">Users</a>
         </div>
-        <div class="col-lg-1 offset-lg-8">
+        <div class="col-lg-1 offset-lg-4">
             <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
                 <mat-icon>logout</mat-icon>
                 Log Out
-              </button>
+            </button>
         </div>
     </div>
 </div>

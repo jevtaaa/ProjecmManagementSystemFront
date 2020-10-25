@@ -1,31 +1,26 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 offset-4 text-center my-auto">
-
             <form [formGroup]="projectForm">
-
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>Project name</mat-label>
                     <input formControlName="project_name" matInput placeholder="jevta">
                     <mat-error *ngIf="projectForm.get('project_name').invalid">Please enter project name</mat-error>
                 </mat-form-field>
-
                 <mat-form-field>
                     <mat-label>Project manager</mat-label>
                     <mat-select formControlName="project_manager">
-                        <mat-option *ngFor="let manager of managers" [value]="manager">
-                            {{manager}}
+                        <mat-option *ngFor="let pm of projectManagers" [value]="pm.username">
+                            {{pm.username}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </form>
-
         </div>
         <div class="col text-right" *ngIf="!edit">
             <a>
                 <mat-icon (click)="editMode()">edit</mat-icon>
             </a>
-
         </div>
     </div>
     <div class="row">
@@ -40,7 +35,7 @@
     </div>
     <div class="row" *ngIf="edit">
         <div class="col text-center">
-            <button mat-stroked-button color="primary" type="submit" (click)="saveChanges()">
+            <button mat-stroked-button color="primary" [disabled]="!projectForm.valid" (click)="saveChanges()">
                 Save
             </button>
         </div>

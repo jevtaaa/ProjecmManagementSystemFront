@@ -26,6 +26,15 @@ export class ProjectService {
     return this.http.get(this.authService.ngrokUrl + 'project/all');
   }
 
+  public updateProject(projectId: number, projectManagerId: number, name: string) {
+    const httpBody = {
+      "name": name,
+      "projectmanagerid": projectManagerId
+    };
+
+    return this.http.put(this.authService.ngrokUrl+'project/'+projectId, httpBody);
+  }
+
   fetchAllProjects(){
 
     if(!this.authService.roleMatch(['Admin','ProjectManager'])){
