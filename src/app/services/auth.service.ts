@@ -8,7 +8,7 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
     loggedUser: User;
-    ngrokUrl: string = "https://690f800bf938.ngrok.io/api/";
+    ngrokUrl: string = "https://a14ff2bfb2fc.ngrok.io/api/";
 
     constructor(private http: HttpClient, private router: Router) {
 

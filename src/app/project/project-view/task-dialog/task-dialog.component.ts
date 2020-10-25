@@ -17,8 +17,9 @@ export class TaskDialogComponent implements OnInit {
   taskForm: FormGroup;
   developers: User[];
   statuses: string[] = ["new", "in progress", "finished"];
+  progress: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Task, private service: ProjectService, private userService:UserService, public dialogRef: MatDialogRef<TaskDialogComponent>) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { task: Task, project: Project }, private service: ProjectService, private userService: UserService, public dialogRef: MatDialogRef<TaskDialogComponent>) {
     this.service.dialog = this.dialogRef;
   }
 
@@ -26,9 +27,7 @@ export class TaskDialogComponent implements OnInit {
 
     this.developers = this.userService.developers;
     this.initForm();
-    console.log(this.data)
-    console.log(this.data.developer === this.userService.developers[2])
-    
+
   }
 
   formatLabel(value: number) {
@@ -37,25 +36,53 @@ export class TaskDialogComponent implements OnInit {
   }
 
   initForm() {
+
+    if (!this.data.task) {
+      this.taskForm = new FormGroup({
+
+        task_deadline: new FormControl('', [Validators.required]),
+        assignee: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        status: new FormControl('', [Validators.required]),
+        progress: new FormControl('', [Validators.required])
+
+      })
+      return;
+    }
+
     this.taskForm = new FormGroup({
 
-      task_deadline: new FormControl(this.data.deadline, [Validators.required]),
-      assignee: new FormControl(this.data.developer, [Validators.required]),
-      description: new FormControl(this.data.description, [Validators.required]),
-      status: new FormControl(this.data.status, [Validators.required])
+      task_deadline: new FormControl(this.data.task.deadline, [Validators.required]),
+      assignee: new FormControl(this.userService.developers.find(x => x.username === this.data.task.developer.username), [Validators.required]),
+      description: new FormControl(this.data.task.description, [Validators.required]),
+      status: new FormControl(this.data.task.status, [Validators.required]),
+      progress: new FormControl(this.data.task.progress, [Validators.required])
 
     })
   }
 
   deleteTask() {
-   // this.data.project.tasks = this.data.project.tasks.filter(x => x !== this.data.task);
+    // this.data.project.tasks = this.data.project.tasks.filter(x => x !== this.data.task);
     this.service.dialog.close();
     console.log(this.userService.projectManagers)
-    
+
   }
 
   updateTask() {
 
   }
 
+  saveTask() {   
+
+    let task: Task = new Task(-1, this.taskForm.value['status'], this.taskForm.value['progress'], new Date(this.taskForm.value), this.taskForm.value['description'], this.taskForm.value['assignee'])
+    console.log(task)
+    this.service.saveTask(task, this.data.project.id).subscribe((data)=>{
+      console.log(data)
+    })
+
+    
+
+  }
 }
+
+

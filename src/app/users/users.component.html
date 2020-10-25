@@ -1,1 +1,13 @@
-<p>users works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let manager of userService.projectManagers">
+            <app-single-user [user]="manager"></app-single-user>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let developer of userService.developers">
+            <app-single-user [user]="developer"></app-single-user>
+        </div>
+    </div>
+</div>
+ 

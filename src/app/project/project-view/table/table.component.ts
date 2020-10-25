@@ -1,4 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,25 +29,22 @@ import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 export class TableComponent implements OnInit {
 
 
-  project: Project;
+  @Input() project: Project;
   columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'edit', 'remove'];
   expandedElement: Task | null;
+  dataSource: Task[];
 
 
 
 
-  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, private projectService: ProjectService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-
-    this.router.paramMap.subscribe(paramMap => {
-      this.project = this.projectService.projects.find(data => data.id == +paramMap.get('id'))
-    })
-
+    this.project ? this.dataSource = this.project.tasks : this.dataSource = [];
   }
 
-  developerName(data:User){
-    return data.name+' '+data.surname;
+  developerName(data: User) {
+    return data.name + ' ' + data.surname;
   }
 
 
@@ -55,11 +53,15 @@ export class TableComponent implements OnInit {
 
   }
 
+  addTask() {
+    this.openDialog(null);
+  }
+
   openDialog(task: Task) {
-    console.log(task.developer === this.userService.developers[2])
+
     this.dialog.open(TaskDialogComponent, {
-      data:task,
-        
+      data: { task: task, project: this.project },
+
     });
   }
 }

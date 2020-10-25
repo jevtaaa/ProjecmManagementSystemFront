@@ -7,6 +7,7 @@ import { Task } from '../model/task.model';
 import { User } from '../model/user.model';
 import { TaskDialogComponent } from '../project/project-view/task-dialog/task-dialog.component';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class ProjectService {
 
   dialog: MatDialogRef<TaskDialogComponent>;
   projects: Project[] = []
+  projectForCreate: Project;
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -32,16 +34,25 @@ export class ProjectService {
       "projectmanagerid": projectManagerId
     };
 
-    return this.http.put(this.authService.ngrokUrl+'project/'+projectId, httpBody);
+    return this.http.put(this.authService.ngrokUrl + 'project/' + projectId, httpBody);
+  }
+
+  public saveProject(projectManagerId: number, name: string) {
+    const httpBody = {
+      "name": name,
+      "projectmanagerid": projectManagerId
+    };
+
+    return this.http.post(this.authService.ngrokUrl + 'project/create', httpBody);
   }
 
   public deleteProject(projectId: number) {
-    return this.http.delete(this.authService.ngrokUrl+'project/'+projectId);
+    return this.http.delete(this.authService.ngrokUrl + 'project/' + projectId);
   }
 
-  fetchAllProjects(){
+  fetchAllProjects() {
 
-    if(!this.authService.roleMatch(['Admin','ProjectManager'])){
+    if (!this.authService.roleMatch(['Admin', 'ProjectManager'])) {
       return;
     }
 
@@ -65,5 +76,33 @@ export class ProjectService {
   removeFromProjects(project: Project) {
     let index = this.projects.indexOf(this.projects.find(x => x.id == project.id));
     this.projects.splice(index, 1);
+  }
+
+  getUsersTasks(user: User) {
+    let tasks: Task[] = [];
+    for (let project of this.projects) {
+      for (let task of project.tasks) {
+        if (task.developer)
+          task.developer.username === user.username ? tasks.push(task) : null;
+      }
+    }
+    return tasks;
+  }
+
+  getManagersProjects(user: User) {
+
+    return this.projects.filter(project => project.projectManager.username === user.username);
+  }
+
+  saveTask(task: Task, projectId: number) {
+    const httpBody = {
+      "status": task.status,
+      "developerid": task.developer.id,
+      "progress": task.progress,
+      "deadline": task.deadline,
+      "description": task.description
+
+    };
+    return this.http.post(this.authService.ngrokUrl + 'project/' + projectId + '/addtask', httpBody);
   }
 }

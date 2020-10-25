@@ -24,6 +24,7 @@ export class ProjectViewComponent implements OnInit {
   selectedValue: string;
   project: Project;
   edit: boolean;
+  new: boolean;
 
 
   constructor(private route: Router, private router: ActivatedRoute, private projectService: ProjectService, private userService: UserService, private toastr: ToastrService) { }
@@ -34,9 +35,30 @@ export class ProjectViewComponent implements OnInit {
     this.projectManagers = this.userService.projectManagers;
 
     this.router.paramMap.subscribe(paramMap => {
-      this.project = this.projectService.projects.find(data => data.id == +paramMap.get('id'));
-      console.log(this.project);
+      if (paramMap.get('id') === 'new') {
+
+        this.new = true;
+        this.edit = true;
+      } else {
+        this.project = this.projectService.projects.find(data => data.id == +paramMap.get('id'));
+      }
+
     })
+
+    this.initForm();
+  }
+
+  initForm() {
+
+    if (this.new) {
+      this.projectForm = new FormGroup({
+
+        project_name: new FormControl('', [Validators.required]),
+        project_manager: new FormControl('', [Validators.required])
+
+      })
+      return;
+    }
 
     this.projectForm = new FormGroup({
 
@@ -53,28 +75,35 @@ export class ProjectViewComponent implements OnInit {
   }
 
   saveChanges() {
-    let projectManeger: User[] = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value));
+    let projectManager: User[] = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value));
     let name = this.projectForm.controls.project_name.value;
-    this.projectService.updateProject(this.project.id, projectManeger[0].id, name)
-    .subscribe((data:any) => {
-      console.log(data);
-      this.project.name = data.name;
-      this.project.projectManager = plainToClass(User, data.projectManager);
-      this.toastr.success("", "Successfully edited!");
-    })
+    this.projectService.updateProject(this.project.id, projectManager[0].id, name)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.project.name = data.name;
+        this.project.projectManager = plainToClass(User, data.projectManager);
+        this.toastr.success("", "Successfully edited!");
+      })
     this.editMode();
   }
 
-  addTask() {
-    this.project.tasks = this.project.tasks.filter(x => x);
+  saveProject() {
+    let projectManager: User[] = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value));
+    let name = this.projectForm.controls.project_name.value;
+    this.projectService.saveProject(projectManager[0].id, name)
+      .subscribe((data: Project) => {
+        this.project = data;
+        this.toastr.success("", "Successfully saved!");
+      })
   }
+
 
   deleteProject() {
     this.projectService.deleteProject(this.project.id)
-    .subscribe((data:any) => {
-      this.toastr.success("", "Successfully deleted!");
-      this.projectService.removeFromProjects(this.project);
-    })
+      .subscribe((data: any) => {
+        this.toastr.success("", "Successfully deleted!");
+        this.projectService.removeFromProjects(this.project);
+      })
 
     this.route.navigateByUrl('home/project');
   }

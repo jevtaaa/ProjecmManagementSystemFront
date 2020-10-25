@@ -32,6 +32,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './guards/auth.interceptor';
 import { UsersComponent } from './users/users.component';
+import { SingleUserComponent } from './users/single-user/single-user.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -45,7 +48,8 @@ import { UsersComponent } from './users/users.component';
     ProjectViewComponent,
     TableComponent,
     TaskDialogComponent,
-    UsersComponent
+    UsersComponent,
+    SingleUserComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +62,10 @@ import { UsersComponent } from './users/users.component';
     MatInputModule,
     MatSliderModule,
     MatTableModule,
+    MatListModule,
     MatExpansionModule,
     ReactiveFormsModule,
+    MatDividerModule,
     MatProgressBarModule,
     MatDialogModule,
     MatIconModule,

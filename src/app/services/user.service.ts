@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class UserService {
 
-  projectManagers: User[];
+  projectManagers: User[]; 
   developers: User[];
 
   constructor(private http: HttpClient, private authService: AuthService) { 

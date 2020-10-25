@@ -4,7 +4,7 @@
             <form [formGroup]="projectForm">
                 <mat-form-field class="full-width" appearance="standard">
                     <mat-label>Project name</mat-label>
-                    <input formControlName="project_name" matInput placeholder="jevta">
+                    <input formControlName="project_name" matInput placeholder="project">
                     <mat-error *ngIf="projectForm.get('project_name').invalid">Please enter project name</mat-error>
                 </mat-form-field>
                 <mat-form-field>
@@ -17,7 +17,7 @@
                 </mat-form-field>
             </form>
         </div>
-        <div class="col text-right" *ngIf="!edit">
+        <div class="col text-right" *ngIf="!edit || !new">
             <a style="margin: 5%;">
                 <mat-icon (click)="editMode()">edit</mat-icon>
             </a>
@@ -26,19 +26,15 @@
             </a>
         </div>
     </div>
-    <div class="row">
-        <div class="col text-right">
-            <a><mat-icon (click)="addTask()">add</mat-icon></a>
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col">
-            <app-table></app-table>
+            <app-table [project]="project"></app-table>
         </div>
     </div>
     <div class="row" *ngIf="edit">
         <div class="col text-center">
-            <button mat-stroked-button color="primary" [disabled]="!projectForm.valid" (click)="saveChanges()">
+            <button mat-stroked-button color="primary" [disabled]="!projectForm.valid" (click)="new ? saveProject(): saveChanges()">
                 Save
             </button>
         </div>
