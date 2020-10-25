@@ -35,6 +35,10 @@ export class ProjectService {
     return this.http.put(this.authService.ngrokUrl+'project/'+projectId, httpBody);
   }
 
+  public deleteProject(projectId: number) {
+    return this.http.delete(this.authService.ngrokUrl+'project/'+projectId);
+  }
+
   fetchAllProjects(){
 
     if(!this.authService.roleMatch(['Admin','ProjectManager'])){
@@ -56,5 +60,10 @@ export class ProjectService {
     }, (err) => {
       console.log(err)
     })
+  }
+
+  removeFromProjects(project: Project) {
+    let index = this.projects.indexOf(this.projects.find(x => x.id == project.id));
+    this.projects.splice(index, 1);
   }
 }

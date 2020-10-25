@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { plainToClass } from 'class-transformer';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/model/project.model';
@@ -26,7 +26,7 @@ export class ProjectViewComponent implements OnInit {
   edit: boolean;
 
 
-  constructor(private router: ActivatedRoute, private projectService: ProjectService, private userService: UserService, private toastr: ToastrService) { }
+  constructor(private route: Router, private router: ActivatedRoute, private projectService: ProjectService, private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -67,6 +67,16 @@ export class ProjectViewComponent implements OnInit {
 
   addTask() {
     this.project.tasks = this.project.tasks.filter(x => x);
+  }
+
+  deleteProject() {
+    this.projectService.deleteProject(this.project.id)
+    .subscribe((data:any) => {
+      this.toastr.success("", "Successfully deleted!");
+      this.projectService.removeFromProjects(this.project);
+    })
+
+    this.route.navigateByUrl('home/project');
   }
 }
 

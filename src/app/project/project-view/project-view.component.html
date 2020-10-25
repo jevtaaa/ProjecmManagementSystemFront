@@ -22,6 +22,11 @@
                 <mat-icon (click)="editMode()">edit</mat-icon>
             </a>
         </div>
+        <div class="col text-right" *ngIf="!edit">
+            <a>
+                <mat-icon (click)="deleteProject()">delete</mat-icon>
+            </a>
+        </div>
     </div>
     <div class="row">
         <div class="col text-right">
