@@ -2,9 +2,7 @@ import { User } from './user.model';
 
 export class Task {
     
-    
-
-    constructor(private _id: number, private _assignee: string, private _status: string, private _progress: number, private _deadline: Date, private _description: string, private _developer: User) {
+    constructor(private _id: number, private _status: string, private _progress: number, private _deadline: Date, private _description: string, private _developer: User) {
     }
 
     public get developer(): User {
@@ -39,14 +37,6 @@ export class Task {
         if (value === 'new' || value === 'in progress' || value ==='finished')
             this._status = value;
     }
-    public get assignee(): string {
-        return this._assignee;
-    }
-    public set assignee(value: string) {
-        this._assignee = value;
-    }
-
-
 
     public get id(): number {
         return this._id;
@@ -55,7 +45,4 @@ export class Task {
         this._id = value;
     }
 
-    proba() {
-        return "proba"
-    }
 }

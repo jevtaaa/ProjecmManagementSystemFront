@@ -30,7 +30,7 @@ const routes: Routes = [
             component: ProjectComponent,
             canActivate: [AuthGuard],
             data: {
-              permittedRoles: ['Admin']
+              permittedRoles: ['Admin', 'ProjectManager']
             }
           },
           {

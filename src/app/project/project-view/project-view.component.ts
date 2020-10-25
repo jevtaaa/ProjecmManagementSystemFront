@@ -55,12 +55,8 @@ export class ProjectViewComponent implements OnInit {
   }
 
   addTask() {
-    this.project.tasks.push(new Task(1, "User1", "New", 72, null, "Opis", null))
     this.project.tasks = this.project.tasks.filter(x => x);
-
   }
-
-
 }
 
 

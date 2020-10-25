@@ -27,7 +27,7 @@ export class TableComponent implements OnInit {
 
 
   project: Project;
-  columnsToDisplay = ['id', 'name', 'assignee', 'status', 'progress', 'deadline', 'remove'];
+  columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'remove'];
   expandedElement: Task | null;
 
 

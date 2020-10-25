@@ -35,7 +35,7 @@ export class TaskDialogComponent implements OnInit {
 
      
       task_deadline: new FormControl(this.data.task.deadline, [Validators.required]),
-      assignee: new FormControl(this.data.task.assignee, [Validators.required]),
+      assignee: new FormControl(this.data.task.developer, [Validators.required]),
       description: new FormControl(this.data.task.description, [Validators.required]),
       status: new FormControl(this.data.task.status, [Validators.required])
 
