@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { plainToClass } from 'class-transformer';
 import { Project } from '../model/project.model';
 import { Task } from '../model/task.model';
+import { User } from '../model/user.model';
 import { ProjectService } from '../services/project.service';
 
 
@@ -16,7 +18,9 @@ export class ProjectComponent implements OnInit {
   constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
+
     this.projects = this.projectService.projects;
   }
+
 
 }
