@@ -31,6 +31,7 @@ import { TaskDialogComponent } from './project/project-view/task-dialog/task-dia
 import { MatSliderModule } from '@angular/material/slider';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './guards/auth.interceptor';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { AuthInterceptor } from './guards/auth.interceptor';
     ProjectItemComponent,
     ProjectViewComponent,
     TableComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

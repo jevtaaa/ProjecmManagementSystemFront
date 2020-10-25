@@ -6,10 +6,10 @@
                
 
                 <mat-form-field class="combobox">
-                    <mat-label>Project manager</mat-label>
+                    <mat-label>Developer</mat-label>
                     <mat-select formControlName="assignee">
-                        <mat-option *ngFor="let manager of managers" [value]="manager">
-                            {{manager}}
+                        <mat-option *ngFor="let developer of developers" [value]="developer">
+                            {{developer.name}} {{developer.surname}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -23,7 +23,7 @@
                     </mat-select>
                 </mat-form-field>
                 Progress
-                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100" [value]="data.task.progress"></mat-slider>
+                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100" [value]="data.progress"></mat-slider>
                 <mat-form-field  appearance="standard">
                     <mat-label>Deadline</mat-label>
                     <input formControlName="task_deadline" matInput placeholder="">

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProjectViewComponent } from './project/project-view/project-view.component';
 import { ProjectComponent } from './project/project.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,11 @@ const routes: Routes = [
             canActivate: [AuthGuard],
           }
         ]
+      },
+      {
+        path:'users',
+        component: UsersComponent,
+        canActivate:[AuthGuard]
       }
     ]
   }

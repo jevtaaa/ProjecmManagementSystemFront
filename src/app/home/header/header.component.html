@@ -3,14 +3,14 @@
         <div class="col-lg-1">
             <a routerLink="/">Home</a>
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
             <a routerLink="project">Project</a>  
         </div>
         <div class="col-lg-1">
             <a routerLink="task">Tasks</a>
         </div>
-        <div class="col-lg-1">
-            <a routerLink="user">Users</a>
+        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin'])">
+            <a routerLink="users">Users</a>
         </div>
         <div class="col-lg-1 offset-lg-8">
             <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">

@@ -8,13 +8,13 @@
         {{element[column]}}
       </div>
       <div *ngIf="column==='assignee'">
-        {{element.developer ? (element.developer.name) (element.developer.surname) : "Empty"}}
+        {{element.developer ? developerName(element.developer) : 'Empty'}}
       </div>
       <div *ngIf="column==='remove'">
         <a>
           <mat-icon (click)="openDialog(element)">edit</mat-icon>
         </a>
-      </div>
+      </div> 
     </td>
   </ng-container>
 

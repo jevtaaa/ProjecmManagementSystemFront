@@ -4,7 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/model/project.model';
 import { Task } from 'src/app/model/task.model';
+import { User } from 'src/app/model/user.model';
 import { ProjectService } from 'src/app/services/project.service';
+import { UserService } from 'src/app/services/user.service';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
 
@@ -33,7 +35,7 @@ export class TableComponent implements OnInit {
 
 
 
-  constructor(private router: ActivatedRoute, private projectService: ProjectService, private dialog: MatDialog) { }
+  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -41,10 +43,12 @@ export class TableComponent implements OnInit {
       this.project = this.projectService.projects.find(data => data.id == +paramMap.get('id'))
     })
 
-   
-
-
   }
+
+  developerName(data:User){
+    return data.name+' '+data.surname;
+  }
+
 
   removeTask(task: Task) {
     this.project.tasks = this.project.tasks.filter(x => x !== task);
@@ -52,11 +56,10 @@ export class TableComponent implements OnInit {
   }
 
   openDialog(task: Task) {
+    console.log(task.developer === this.userService.developers[2])
     this.dialog.open(TaskDialogComponent, {
-      data: {
-        task:task,
-        project: this.project
-      }
+      data:task,
+        
     });
   }
 }
