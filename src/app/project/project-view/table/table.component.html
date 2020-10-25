@@ -4,11 +4,14 @@
       {{column| titlecase}}
     </th>
     <td mat-cell *matCellDef="let element">
-      <div *ngIf="column!=='remove' && column!='assignee'">
+      <div *ngIf="column!=='remove' && column!='assignee' && column!='deadline'">
         {{element[column]}}
       </div>
       <div *ngIf="column==='assignee'">
         {{element.developer ? developerName(element.developer) : 'Empty'}}
+      </div>
+      <div *ngIf="column==='deadline'">
+        {{element.deadline | date: 'longDate' }}
       </div>
       <div *ngIf="column==='edit'">
         <a>

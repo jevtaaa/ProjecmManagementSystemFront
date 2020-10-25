@@ -1,18 +1,30 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-1">
-            <a routerLink="/">Home</a>
+            <button mat-button routerLink="">
+                <mat-icon>home</mat-icon>
+                Home
+            </button>
         </div>
         <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
-            <a routerLink="project">Project</a>  
+            <button mat-button routerLink="project">
+                <mat-icon>pending_actions</mat-icon>
+                Projets
+            </button>
         </div>
         <div class="col-lg-1">
-            <a routerLink="task">Tasks</a>
+            <button mat-button routerLink="users">
+                <mat-icon>assignment</mat-icon>
+                Tasks
+            </button>
         </div>
         <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin'])">
-            <a routerLink="users">Users</a>
+            <button mat-button routerLink="users">
+                <mat-icon>group</mat-icon>
+                Users
+            </button>
         </div>
-        <div class="col-lg-1 offset-lg-4">
+        <div class="col-lg-1 offset-lg-7">
             <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
                 <mat-icon>logout</mat-icon>
                 Log Out

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthGuard } from '../guards/auth.guard';
+import { User } from '../model/user.model';
+import { AuthService } from '../services/auth.service';
 import { ProjectService } from '../services/project.service';
 import { UserService } from '../services/user.service';
 
@@ -10,7 +13,7 @@ import { UserService } from '../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private projectService: ProjectService, private userService: UserService) { }
+  constructor(private projectService: ProjectService, private userService: UserService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.projectService.fetchAllProjects();
