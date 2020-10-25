@@ -31,6 +31,10 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.projectService.projects == null || this.projectService.projects == undefined){
+      this.route.navigateByUrl('/home');
+    }
+
     this.edit = false;
     this.projectManagers = this.userService.projectManagers;
 
@@ -43,7 +47,7 @@ export class ProjectViewComponent implements OnInit {
         this.project = this.projectService.projects.find(data => data.id == +paramMap.get('id'));
       }
 
-    })
+    });
 
     this.initForm();
   }

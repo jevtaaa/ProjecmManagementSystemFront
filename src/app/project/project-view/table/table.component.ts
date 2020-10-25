@@ -11,10 +11,6 @@ import { TableService } from 'src/app/services/table.service';
 import { UserService } from 'src/app/services/user.service';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
-
-
-
-
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',

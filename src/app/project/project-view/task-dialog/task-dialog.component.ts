@@ -10,6 +10,9 @@ import { TableService } from 'src/app/services/table.service';
 import { UserService } from 'src/app/services/user.service';
 import {MatCalendar} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
+import { ToastrService } from 'ngx-toastr';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -24,7 +27,9 @@ export class TaskDialogComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { task: Task, project: Project }, private tableService: TableService, private service: ProjectService, private userService: UserService, public dialogRef: MatDialogRef<TaskDialogComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { task: Task, project: Project }, 
+  private tableService: TableService, private service: ProjectService, 
+  private userService: UserService, public dialogRef: MatDialogRef<TaskDialogComponent>, private toastr: ToastrService, private authService: AuthService) {
     this.service.dialog = this.dialogRef;
     const current = new Date();
     this.minDate = current;
@@ -59,14 +64,13 @@ export class TaskDialogComponent implements OnInit {
     }
 
     this.taskForm = new FormGroup({
-
-      task_deadline: new FormControl(this.data.task.deadline, [Validators.required]),
-      assignee: new FormControl(this.userService.developers.find(x => x.username === this.data.task.developer.username), [Validators.required]),
+      task_deadline: new FormControl({value : this.data.task.deadline, disabled: !this.authService.roleMatch(['Admin','ProjectManager'])}, [Validators.required]),
+      assignee: new FormControl({value : this.userService.developers.find(x => x.username === this.data.task.developer.username), 
+        disabled: !this.authService.roleMatch(['Admin','ProjectManager'])}, [Validators.required]),
       description: new FormControl(this.data.task.description, [Validators.required]),
       status: new FormControl(this.data.task.status, [Validators.required]),
       progress: new FormControl(this.data.task.progress, [Validators.required])
-
-    })
+    });
   }
 
   deleteTask() {
@@ -74,35 +78,46 @@ export class TaskDialogComponent implements OnInit {
       this.tableService.tasks = this.tableService.tasks.filter(x => x.id !== this.data.task.id);
       this.service.dialog.close();
     });
-
-
-
   }
 
   updateTask() {
+    let task: Task = new Task(this.data.task.id, this.taskForm.value['status'],
+      this.taskForm.value['progress'], new Date(this.taskForm.value['task_deadline']),
+      this.taskForm.value['description'], this.taskForm.value['assignee']);
 
+      this.service.updateTask(this.data.project.id, task)
+      .subscribe((data: Task) =>{
+        let task: Task = plainToClass(Task, data);
+        task.developer = plainToClass(User, data.developer);
+
+        this.tableService.tasks = this.tableService.tasks.map(item => {
+          if(item.id == task.id){
+            item = task;
+          }
+          return item;
+        });
+        //this.tableService.tasks = this.tableService.tasks.filter(x => x);
+        this.toastr.success("","Successfully updated task!")
+        this.service.dialog.close();
+      })
   }
 
   saveTask() {
 
     let task: Task = new Task(-1, this.taskForm.value['status'],
       this.taskForm.value['progress'], new Date(this.taskForm.value['task_deadline']),
-      this.taskForm.value['description'], this.taskForm.value['assignee'])
-
+      this.taskForm.value['description'], this.taskForm.value['assignee']);
 
     this.service.saveTask(task, this.data.project.id).subscribe((data: Task) => {
 
       let task: Task = plainToClass(Task, data);
-      task.developer = plainToClass(User, data.developer)
+      task.developer = plainToClass(User, data.developer);
 
       this.tableService.tasks.push(task);
-      this.tableService.tasks = this.tableService.tasks.filter(x => x)
-
-      this.service.dialog.close()
+      this.tableService.tasks = this.tableService.tasks.filter(x => x);
+      this.toastr.success("","Successfully saved task!")
+      this.service.dialog.close();
     });
-
-
-
   }
 }
 

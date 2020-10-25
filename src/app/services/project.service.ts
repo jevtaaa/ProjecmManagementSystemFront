@@ -109,4 +109,15 @@ export class ProjectService {
   deleteTask(projectId: number, taskId: number) {
     return this.http.delete(this.authService.ngrokUrl + 'project/' + projectId + '/tasks/' + taskId);
   }
+
+  updateTask(projectId: number, task: Task) {
+    const httpBody = {
+      "status": task.status,
+      "developerid": task.developer.id,
+      "progress": task.progress,
+      "deadline": task.deadline,
+      "description": task.description
+    };
+    return this.http.put(this.authService.ngrokUrl + 'project/' + projectId + '/tasks/' + task.id, httpBody);
+  }
 }

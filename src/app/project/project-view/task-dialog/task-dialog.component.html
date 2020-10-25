@@ -26,7 +26,6 @@
                     <input formControlName="task_deadline" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <!--<input formControlName="task_deadline" matInput placeholder="">
                     <mat-error *ngIf="taskForm.get('task_deadline').invalid">Please enter task deadline</mat-error>-->
                 </mat-form-field>
 
@@ -42,7 +41,7 @@
 
         <div class="col text-right">
             <button mat-button color="warn" *ngIf="data.task" (click)="deleteTask()">Delete</button>
-            <button mat-button color="primary" (click)="data.task? updateTask() : saveTask()">Save changes</button>
+            <button mat-button color="primary" (click)="data.task ? updateTask() : saveTask()" [disabled]="!taskForm.valid">Save changes</button>
         </div>
     </div>
 </div>
