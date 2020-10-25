@@ -91,7 +91,6 @@ export class ProjectService {
   }
 
   getManagersProjects(user: User) {
-
     return this.projects.filter(project => project.projectManager.username === user.username);
   }
 

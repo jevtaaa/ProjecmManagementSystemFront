@@ -35,6 +35,8 @@ import { UsersComponent } from './users/users.component';
 import { SingleUserComponent } from './users/single-user/single-user.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -74,13 +76,16 @@ import { MatListModule } from '@angular/material/list';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },
+  MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

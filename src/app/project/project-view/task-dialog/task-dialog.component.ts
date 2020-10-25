@@ -8,6 +8,8 @@ import { User } from 'src/app/model/user.model';
 import { ProjectService } from 'src/app/services/project.service';
 import { TableService } from 'src/app/services/table.service';
 import { UserService } from 'src/app/services/user.service';
+import {MatCalendar} from '@angular/material/datepicker';
+import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
 
 @Component({
   selector: 'app-task-dialog',
@@ -19,10 +21,14 @@ export class TaskDialogComponent implements OnInit {
   taskForm: FormGroup;
   developers: User[];
   statuses: string[] = ["new", "in progress", "finished"];
-
+  minDate: Date;
+  maxDate: Date;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { task: Task, project: Project }, private tableService: TableService, private service: ProjectService, private userService: UserService, public dialogRef: MatDialogRef<TaskDialogComponent>) {
     this.service.dialog = this.dialogRef;
+    const current = new Date();
+    this.minDate = current;
+    this.maxDate = new Date(current.getFullYear() + 5, 11, 31);
   }
 
   ngOnInit(): void {
@@ -64,9 +70,7 @@ export class TaskDialogComponent implements OnInit {
   }
 
   deleteTask() {
-
-    this.service.deleteTask(this.data.project.id, this.data.task.id).subscribe((data) => {
-      console.log(data)
+    this.service.deleteTask(this.data.project.id, this.data.task.id).subscribe((res) => {
       this.tableService.tasks = this.tableService.tasks.filter(x => x.id !== this.data.task.id);
       this.service.dialog.close();
     });
