@@ -74,11 +74,14 @@ export class TaskDialogComponent implements OnInit {
 
   saveTask() {   
 
-    let task: Task = new Task(-1, this.taskForm.value['status'], this.taskForm.value['progress'], new Date(this.taskForm.value), this.taskForm.value['description'], this.taskForm.value['assignee'])
-    console.log(task)
+    let task: Task = new Task(-1, this.taskForm.value['status'], 
+    this.taskForm.value['progress'], new Date(this.taskForm.value['task_deadline']), 
+    this.taskForm.value['description'], this.taskForm.value['assignee'])
+
+    
     this.service.saveTask(task, this.data.project.id).subscribe((data)=>{
-      console.log(data)
-    })
+      
+    });
 
     
 

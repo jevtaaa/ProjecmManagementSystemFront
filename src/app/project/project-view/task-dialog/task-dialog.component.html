@@ -2,9 +2,6 @@
     <div class="row">
         <div class="col">
             <form [formGroup]="taskForm">
-
-
-
                 <mat-form-field class="combobox">
                     <mat-label>Developer</mat-label>
                     <mat-select formControlName="assignee">
@@ -13,7 +10,6 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-
                 <mat-form-field>
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status">
@@ -22,7 +18,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                Progress
+                    Progress
                 <mat-slider formControlName="progress" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100"
                     ></mat-slider>
                 <mat-form-field appearance="standard">
@@ -36,7 +32,6 @@
                     <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                         cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
                 </mat-form-field>
-
             </form>
         </div>
     </div>
