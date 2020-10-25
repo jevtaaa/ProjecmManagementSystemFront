@@ -19,6 +19,7 @@ export class ProjectService {
   dialog: MatDialogRef<TaskDialogComponent>;
   projects: Project[] = []
   projectForCreate: Project;
+  projectForEdit: Project;
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -104,5 +105,9 @@ export class ProjectService {
 
     };
     return this.http.post(this.authService.ngrokUrl + 'project/' + projectId + '/addtask', httpBody);
+  }
+
+  deleteTask(projectId: number, taskId: number) {
+    return this.http.delete(this.authService.ngrokUrl + 'project/' + projectId + '/tasks/' + taskId);
   }
 }

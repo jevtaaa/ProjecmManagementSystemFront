@@ -93,6 +93,7 @@ export class ProjectViewComponent implements OnInit {
     this.projectService.saveProject(projectManager[0].id, name)
       .subscribe((data: Project) => {
         this.project = data;
+        this.edit = !this.edit;
         this.toastr.success("", "Successfully saved!");
       })
   }

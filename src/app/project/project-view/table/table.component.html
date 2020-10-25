@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+      <table mat-table [dataSource]="tableService.tasks" multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
           <th mat-header-cell *matHeaderCellDef>
             {{column| titlecase}}
@@ -26,11 +26,7 @@
                 <mat-icon color="primary" (click)="openDialog(element)">edit</mat-icon>
               </a>
             </div>
-            <div *ngIf="column==='remove'">
-              <a>
-                <mat-icon color="warn" >delete</mat-icon>
-              </a>
-            </div>
+            
           </td>
         </ng-container>
 

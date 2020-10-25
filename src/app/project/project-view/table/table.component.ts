@@ -7,6 +7,7 @@ import { Project } from 'src/app/model/project.model';
 import { Task } from 'src/app/model/task.model';
 import { User } from 'src/app/model/user.model';
 import { ProjectService } from 'src/app/services/project.service';
+import { TableService } from 'src/app/services/table.service';
 import { UserService } from 'src/app/services/user.service';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 
@@ -30,17 +31,14 @@ export class TableComponent implements OnInit {
 
 
   @Input() project: Project;
-  columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'edit', 'remove'];
+  columnsToDisplay = ['id', 'assignee', 'status', 'progress', 'deadline', 'edit'];
   expandedElement: Task | null;
-  dataSource: Task[];
+  
 
-
-
-
-  constructor(private userService: UserService, private projectService: ProjectService, private dialog: MatDialog) { }
+  constructor( public tableService: TableService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.project ? this.dataSource = this.project.tasks : this.dataSource = [];
+    this.project ? this.tableService.tasks = this.project.tasks : this.tableService.tasks = [];
   }
 
   developerName(data: User) {
@@ -55,6 +53,7 @@ export class TableComponent implements OnInit {
 
   addTask() {
     this.openDialog(null);
+    
   }
 
   openDialog(task: Task) {
