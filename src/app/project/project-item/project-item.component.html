@@ -1,11 +1,11 @@
 <mat-card class="example-card">
     <mat-card-header>
         <mat-card-title>
-            {{project.project_name}}
+            {{project.name}}
              
              
             </mat-card-title>
-        <mat-card-subtitle>{{project.project_manager}}</mat-card-subtitle>
+        <mat-card-subtitle>{{project.projectManager.name}}  {{project.projectManager.surname}}</mat-card-subtitle>
         <span class="example-spacer"></span>
         <a [routerLink]="project.id"><mat-icon >visibility</mat-icon></a>
         
@@ -25,8 +25,8 @@
 
                 <mat-toolbar *ngFor="let task of project.tasks; let i=index">
                    
-                    <span style="margin-right: 5px;">{{i+1}}.</span>
-                    <span>Ime taska</span>
+                    <span style="margin-right: 5px;">Task No.{{i+1}}</span>
+                    
                     <span class="example-spacer"></span>
                     <mat-progress-bar id="progressBar" mode="determinate" [value]="task.progress"></mat-progress-bar>
                     <span>{{task.progress}}%</span>

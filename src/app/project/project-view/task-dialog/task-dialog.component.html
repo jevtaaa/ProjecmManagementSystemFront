@@ -3,11 +3,7 @@
         <div class="col">
             <form [formGroup]="taskForm">
 
-                <mat-form-field class="full-width" appearance="standard">
-                    <mat-label>Task name</mat-label>
-                    <input formControlName="task_name" matInput placeholder="">
-                    <mat-error *ngIf="taskForm.get('task_name').invalid">Please enter task name</mat-error>
-                </mat-form-field>
+               
 
                 <mat-form-field class="combobox">
                     <mat-label>Project manager</mat-label>

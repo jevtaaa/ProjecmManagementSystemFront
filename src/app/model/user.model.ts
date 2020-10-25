@@ -1,42 +1,45 @@
 export class User {
-    constructor(private id: number, private username: string, private name: string, 
-        private surname: string, private email: string, private role: string) {}
 
-    getId() {
-        return this.id;
-    }        
-    getUsername() {
-        return this.username;
-    }
-    getName() {
-        return this.name;
-    }
-    getSurname() {
-        return this.surname;
-    }
-    getEmail() {
-        return this.email;
-    }
-    getRole() {
-        return this.role;
-    }
+    constructor(private _id: number, private _username: string, private _name: string, 
+        private _surname: string, private _email: string, private _role: string) {}
 
-    setId(id: number) {
-        this.id = id;
-    }        
-    setUsername(username: string) {
-        this.username = username;
+    public get role(): string {
+        return this._role;
     }
-    setName(name: string) {
-        this.name = name;
+    public set role(value: string) {
+        this._role = value;
     }
-    setSurname(surname: string) {
-        this.surname = surname;
+    public get email(): string {
+        return this._email;
     }
-    setEmail(email: string) {
-        this.email = email;
+    public set email(value: string) {
+        this._email = value;
     }
-    setRole(role: string) {
-        this.role = role;
-    }  
+    public get surname(): string {
+        return this._surname;
+    }
+    public set surname(value: string) {
+        this._surname = value;
+    }
+    public get name(): string {
+        return this._name;
+    }
+    public set name(value: string) {
+        this._name = value;
+    }
+    public get username(): string {
+        return this._username;
+    }
+    public set username(value: string) {
+        this._username = value;
+    }
+    public get id(): number {
+        return this._id;
+    }
+    public set id(value: number) {
+        this._id = value;
+    }
+    
+
+   
 }

@@ -1,24 +1,25 @@
 import { Task } from './task.model';
+import { User } from './user.model';
 
 export class Project{
-    constructor(private _id: number, private _project_name: string, private _project_manager: string, private _tasks: Task[]){}
+    constructor(private _id: number, private _name: string, private _projectManager: User, private _tasks: Task[]){}
     public get tasks(): Task[] {
         return this._tasks;
     }
     public set tasks(value: Task[]) {
         this._tasks = value;
     }
-    public get project_manager(): string {
-        return this._project_manager;
+    public get projectManager(): User {
+        return this._projectManager;
     }
-    public set project_manager(value: string) {
-        this._project_manager = value;
+    public set projectManager(value: User) {
+        this._projectManager = value;
     }
-    public get project_name(): string {
-        return this._project_name;
+    public get name(): string {
+        return this._name;
     }
-    public set project_name(value: string) {
-        this._project_name = value;
+    public set name(value: string) {
+        this._name = value;
     }
     public get id(): number {
         return this._id;

@@ -8,6 +8,7 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
     loggedUser: User;
+    ngrokUrl: string = "https://56a37fb0331a.ngrok.io/api/";
 
     constructor(private http: HttpClient, private router: Router) {
 
@@ -17,8 +18,8 @@ export class AuthService {
         const httpBody = {
             "username": username,
             "password": password
-          };
-          return this.http.post('https://localhost:44365/api/account/login', httpBody);
+        };
+        return this.http.post(this.ngrokUrl+'account/login', httpBody);
     }
 
     logOut() {
@@ -36,7 +37,7 @@ export class AuthService {
         var playload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
         var userRole = playload.role;
         allowedRoles.forEach(element => {
-            if(userRole == element){
+            if (userRole == element) {
                 isMatch = true;
             }
         });

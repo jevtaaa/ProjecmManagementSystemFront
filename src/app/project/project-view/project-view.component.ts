@@ -36,7 +36,7 @@ export class ProjectViewComponent implements OnInit {
 
     this.projectForm = new FormGroup({
 
-      project_name: new FormControl({ value: this.project.project_name, disabled: !this.edit }, [Validators.required]),
+      project_name: new FormControl({ value: this.project.name, disabled: !this.edit }, [Validators.required]),
       project_manager: new FormControl({ value: this.managers[0], disabled: !this.edit }, [Validators.required])
 
     })
@@ -55,7 +55,7 @@ export class ProjectViewComponent implements OnInit {
   }
 
   addTask() {
-    this.project.tasks.push(new Task(1, "Task1", "User1", "New", 72, null, "Opis"))
+    this.project.tasks.push(new Task(1, "User1", "New", 72, null, "Opis", null))
     this.project.tasks = this.project.tasks.filter(x => x);
 
   }

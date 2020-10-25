@@ -33,7 +33,7 @@ export class TaskDialogComponent implements OnInit {
   initForm() {
     this.taskForm = new FormGroup({
 
-      task_name: new FormControl(this.data.task.name, [Validators.required]),
+     
       task_deadline: new FormControl(this.data.task.deadline, [Validators.required]),
       assignee: new FormControl(this.data.task.assignee, [Validators.required]),
       description: new FormControl(this.data.task.description, [Validators.required]),

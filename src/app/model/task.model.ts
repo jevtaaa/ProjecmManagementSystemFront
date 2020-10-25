@@ -1,13 +1,17 @@
+import { User } from './user.model';
+
 export class Task {
-    public get name(): string {
-        return this._name;
-    }
-    public set name(value: string) {
-        this._name = value;
+    
+    
+
+    constructor(private _id: number, private _assignee: string, private _status: string, private _progress: number, private _deadline: Date, private _description: string, private _developer: User) {
     }
 
-    constructor(private _id: number, private _name: string, private _assignee: string, private _status: string, private _progress: number, private _deadline: Date, private _description: string) {
-
+    public get developer(): User {
+        return this._developer;
+    }
+    public set developer(value: User) {
+        this._developer = value;
     }
 
     public get description(): string {
