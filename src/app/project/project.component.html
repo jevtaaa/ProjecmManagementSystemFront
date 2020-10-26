@@ -1,12 +1,11 @@
 <div class="container-fluid">
-    <div class="row" style="margin-top: 15px;">
-        <div class="col offset-10">
-            <button mat-raised-button color="primary" routerLink="new">Create a project</button>
-        </div>
-    </div>
     <div class="row">
         <div class="col-lg-4" *ngFor="let project of projects">
             <app-project-item [project]="project"></app-project-item>
         </div>
     </div>
+    
 </div>
+<button mat-fab color="primary" id="addButton" routerLink="new">
+    <mat-icon>add</mat-icon>
+</button>

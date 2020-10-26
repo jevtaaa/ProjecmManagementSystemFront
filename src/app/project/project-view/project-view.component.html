@@ -34,8 +34,11 @@
     </div>
     <div class="row" *ngIf="edit">
         <div class="col text-center">
-            <button mat-stroked-button color="primary" [disabled]="!projectForm.valid" (click)="new ? saveProject(): saveChanges()">
+            <button mat-stroked-button style="margin: 5px;" color="primary" [disabled]="!projectForm.valid" (click)="new ? saveProject(): saveChanges()">
                 Save
+            </button>
+            <button mat-stroked-button style="margin: 5px;" color="warn" (click)="editMode()">
+                Cancel
             </button>
         </div>
     </div>
