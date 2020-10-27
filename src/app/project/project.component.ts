@@ -15,11 +15,10 @@ export class ProjectComponent implements OnInit {
 
   projects: Project[];
 
-  constructor(private projectService: ProjectService) { }
+  constructor(public projectService: ProjectService) { }
 
   ngOnInit(): void {
-
-    this.projects = this.projectService.projects;
+    this.projectService.fetchAllProjects();
   }
 
 

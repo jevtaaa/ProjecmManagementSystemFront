@@ -39,6 +39,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     UsersComponent,
     SingleUserComponent,
     UserNewComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserDeleteComponent
   ],
   imports: [
     BrowserModule,

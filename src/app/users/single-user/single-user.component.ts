@@ -6,6 +6,7 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserEditComponent } from 'src/app/users/user-edit/user-edit.component';
+import { UserDeleteComponent } from 'src/app/users/user-delete/user-delete.component';
 
 @Component({
   selector: 'app-single-user',
@@ -16,7 +17,7 @@ export class SingleUserComponent implements OnInit {
 
   @Input() user:User;
 
-  constructor(private projectService: ProjectService, private dialog: MatDialog) { }
+  constructor(public authService: AuthService, private projectService: ProjectService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +35,21 @@ export class SingleUserComponent implements OnInit {
   openEditDialog(user: User){
     this.dialog.open(UserEditComponent, {
         data: { user: user},
-        width: '800px',
+        width: '600px',
     });
+  }
+
+  openDeleteDialog(user: User) {
+    this.dialog.open(UserDeleteComponent, {
+      data: { user: user},
+      width: '525px',
+  });
+  }
+
+  isAdmin(){
+    if(this.authService.roleMatch(['Admin'])){
+      return true;
+    }
+    return false;
   }
 }

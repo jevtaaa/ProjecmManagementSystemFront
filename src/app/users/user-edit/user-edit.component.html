@@ -1,1 +1,44 @@
-<p>user-edit works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <p><strong><h2>Edit User:</h2></strong></p>
+            <form [formGroup]="userEditForm">
+                <div class="row">
+                    <div class="col" style="margin: 3%;">
+                
+                <mat-form-field style="margin: 3%;">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name"/>
+                </mat-form-field>
+                <mat-form-field style="margin: 3%;">
+                    <mat-label>Surname</mat-label>
+                    <input matInput formControlName="surname"/>
+                </mat-form-field>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="margin: 3%;">
+                
+                <mat-form-field class="combobox" style="margin: 3%;">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of roles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="margin: 3%;">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email"/>
+                </mat-form-field>
+            </div>
+        </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button mat-button color="primary" (click) = "editUser()" [disabled]="!userEditForm.valid">Save changes</button>
+        </div>
+    </div>
+</div>

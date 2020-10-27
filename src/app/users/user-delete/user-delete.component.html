@@ -1,0 +1,12 @@
+<mat-card-title>Deleting: {{ data.user.name}} {{ data.user.surname}}</mat-card-title>
+      <mat-card-subtitle>Are you sure?</mat-card-subtitle>
+    <div>
+      <button mat-button color="warn" (click)="deleteUser()">
+        <mat-icon>check</mat-icon>
+        Yes
+      </button>
+      <button mat-button color="primary" (click)="close()">
+        <mat-icon>not_interested</mat-icon>
+        No
+      </button>
+    </div>

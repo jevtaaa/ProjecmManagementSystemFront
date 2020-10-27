@@ -44,7 +44,10 @@ const routes: Routes = [
       {
         path:'users',
         component: UsersComponent,
-        canActivate:[AuthGuard]
+        canActivate:[AuthGuard],
+        data: {
+          permittedRoles: ['Admin', 'ProjectManager']
+        }
       }
     ]
   }

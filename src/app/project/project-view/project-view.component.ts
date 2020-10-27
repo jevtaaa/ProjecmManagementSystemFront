@@ -96,6 +96,12 @@ export class ProjectViewComponent implements OnInit {
     let name = this.projectForm.controls.project_name.value;
     this.projectService.saveProject(projectManager[0].id, name)
       .subscribe((data: Project) => {
+        console.log(data);
+        var projectM = plainToClass(User, data.projectManager);
+        var p = plainToClass(Project, data);
+        p.projectManager = projectM;
+        p.tasks = [];
+        this.projectService.projects.push(p);
         this.project = data;
         this.edit = !this.edit;
         this.toastr.success("", "Successfully saved!");

@@ -77,6 +77,7 @@ export class TaskDialogComponent implements OnInit {
     this.service.deleteTask(this.data.project.id, this.data.task.id).subscribe((res) => {
       this.tableService.tasks = this.tableService.tasks.filter(x => x.id !== this.data.task.id);
       this.service.dialog.close();
+      this.toastr.success("", "Successfully deleted task!")
     });
   }
 

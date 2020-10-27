@@ -18,7 +18,7 @@
                 Tasks
             </button>
         </div>
-        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin'])">
+        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
             <button mat-button routerLink="users">
                 <mat-icon>group</mat-icon>
                 Users

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-4" *ngFor="let project of projects">
+        <div class="col-lg-4" *ngFor="let project of this.projectService.projects">
             <app-project-item [project]="project"></app-project-item>
         </div>
     </div>
