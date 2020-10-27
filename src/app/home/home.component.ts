@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
       this.projectService.fetchAllTasks();
     }
     if(this.authService.roleMatch(['Developer'])){
-      this.projectService.fetchDeveloperTasks(this.authService.loggedUser.id);
+      this.projectService.fetchDeveloperTasks(this.authService.getIdFromToken());
     }
   }
 }

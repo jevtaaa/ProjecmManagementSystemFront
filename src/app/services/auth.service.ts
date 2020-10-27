@@ -34,14 +34,20 @@ export class AuthService {
 
     roleMatch(allowedRoles): boolean {
         var isMatch = false;
-        var playload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
-        var userRole = playload.role;
+        var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        var userRole = payload.role;
         allowedRoles.forEach(element => {
             if (userRole == element) {
                 isMatch = true;
             }
         });
         return isMatch;
+    }
+
+    getIdFromToken() {
+        var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+        console.log(payload.unique_name);
+        return payload.unique_name;
     }
 
 }

@@ -100,7 +100,13 @@ export class TaskDialogComponent implements OnInit {
         //this.tableService.tasks = this.tableService.tasks.filter(x => x);
         this.toastr.success("","Successfully updated task!")
         this.service.dialog.close();
-      })
+      }, (err)=>{
+        if(err.error){
+          if(err.error.message){
+             this.toastr.error(err.error.message, "Error")
+        }
+      }
+      });
   }
 
   saveTask() {
@@ -118,6 +124,12 @@ export class TaskDialogComponent implements OnInit {
       this.tableService.tasks = this.tableService.tasks.filter(x => x);
       this.toastr.success("","Successfully saved task!")
       this.service.dialog.close();
+    }, (err)=>{
+      if(err.error){
+        if(err.error.message){
+          this.toastr.error(err.error.message, "Error")
+        }
+      }
     });
   }
 }

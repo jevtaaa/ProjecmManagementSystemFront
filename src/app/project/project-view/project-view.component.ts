@@ -61,7 +61,7 @@ export class ProjectViewComponent implements OnInit {
       this.projectForm = new FormGroup({
 
         project_name: new FormControl('', [Validators.required]),
-        project_manager: new FormControl({value: this.authService.loggedUser.username, disabled: true}, [Validators.required])
+        project_manager: new FormControl({value: this.setProjectManager(), disabled: true}, [Validators.required])
 
       })
       if(this.authService.roleMatch(['Admin']))
@@ -80,6 +80,10 @@ export class ProjectViewComponent implements OnInit {
       project_manager: new FormControl({ value: this.project.projectManager.username, disabled: !this.edit }, [Validators.required])
 
     })
+  }
+
+  setProjectManager() {
+    return this.authService.loggedUser.username;
   }
 
   editMode() {
