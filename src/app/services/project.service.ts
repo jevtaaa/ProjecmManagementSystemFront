@@ -21,9 +21,7 @@ export class ProjectService {
   projectForCreate: Project;
   projectForEdit: Project;
   alltasks: Task[] = [];
-  devTasks: Task[] = [];
-  nullTask: Task[] = [];
-
+  
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
@@ -136,7 +134,7 @@ export class ProjectService {
   }
 
   private getDevTasks(devId: number) {
-    return this.http.get(this.authService.ngrokUrl + 'task/' + devId);
+    return this.http.get(this.authService.ngrokUrl + 'task');
   }
 
   public fetchAllTasks() {
@@ -154,23 +152,20 @@ export class ProjectService {
   }
 
   fetchDeveloperTasks(id: number) {
-    this.getDevTasks(id).subscribe((data:Task[]) => {
-      var tasks = [];
-      var tasksNull = [];
-      for (let task of data) {
-        let _task: Task = plainToClass(Task, task);
-        if(task.developer!=null){
-          _task.developer = plainToClass(User, task.developer);
-          tasks.push(_task);
+    
+    this.getDevTasks(id).subscribe((data:Project[]) => {
+      console.log(data)
+      this.projects = []
+      
+      for(let project of data){
+        var tasks = [];
+        for( let task of project.tasks){
+          tasks.push(plainToClass(Task, task));
         }
-        if(task.developer == null){
-          tasksNull.push(_task);
-        }
+
+        this.projects.push(new Project(project.id, project.name, plainToClass(User, project.projectManager), tasks));
       }
-      this.devTasks = tasks;
-      this.nullTask = tasksNull;
-      console.log(this.nullTask);
-      console.log(this.devTasks);
+     
     }, (err) => {
       console.log(err)
     }); 

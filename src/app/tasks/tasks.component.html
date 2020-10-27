@@ -1,1 +1,28 @@
-<p>tasks works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col text-center">
+                    <h2>Your tasks</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6" *ngFor="let signedTask of devTasks">
+                    <app-task [project]="findProject(signedTask)" [task]="signedTask"></app-task>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3" id="ex1">
+            <div class="row">
+                <div class="col text-center">
+                    <h2>Unsigned tasks</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" *ngFor="let unsignedTask of nullTasks">
+                    <app-task [project]="findProject(unsignedTask)" [task]="unsignedTask"></app-task>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

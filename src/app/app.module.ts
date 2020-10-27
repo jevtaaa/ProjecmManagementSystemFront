@@ -41,6 +41,7 @@ import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDeleteComponent } from './users/user-delete/user-delete.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TaskComponent } from './tasks/task/task.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { TasksComponent } from './tasks/tasks.component';
     UserNewComponent,
     UserEditComponent,
     UserDeleteComponent,
-    TasksComponent
+    TasksComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

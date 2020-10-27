@@ -32,7 +32,7 @@ export class AuthService {
         return localStorage.getItem('token') != null;
     }
 
-    roleMatch(allowedRoles): boolean {
+    roleMatch(allowedRoles: string[]): boolean {
         var isMatch = false;
         var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
         var userRole = payload.role;
