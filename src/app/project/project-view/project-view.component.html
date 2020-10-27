@@ -21,8 +21,8 @@
             <a style="margin: 5%;" *ngIf="!edit">
                 <mat-icon color="primary" (click)="editMode()">edit</mat-icon>
             </a>
-            <a style="margin: 5%;">
-                <mat-icon color="warn" (click)="deleteProject()">delete</mat-icon>
+            <a style="margin: 5%;" *ngIf="!edit" >
+                <mat-icon color="warn" (click)="isEnableToDelete() ? deleteProject() : showMessage()">delete</mat-icon>
             </a>
         </div>
     </div>

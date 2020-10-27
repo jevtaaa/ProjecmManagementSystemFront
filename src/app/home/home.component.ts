@@ -18,5 +18,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.fetchAllProjects();
     this.userService.fetchAllUsers();
+    if(this.authService.roleMatch(['ProjectManager'])){
+      this.projectService.fetchAllTasks();
+    }
   }
 }

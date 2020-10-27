@@ -20,6 +20,7 @@ export class ProjectService {
   projects: Project[] = []
   projectForCreate: Project;
   projectForEdit: Project;
+  alltasks: Task[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -120,4 +121,23 @@ export class ProjectService {
     };
     return this.http.put(this.authService.ngrokUrl + 'project/' + projectId + '/tasks/' + task.id, httpBody);
   }
+
+  private getAllTasks() {
+    return this.http.get(this.authService.ngrokUrl + 'task/all');
+  }
+
+  public fetchAllTasks() {
+    this.getAllTasks().subscribe((data:Task[]) => {
+      var tasks = [];
+      for (let task of data) {
+        let _task: Task = plainToClass(Task, task);
+        _task.developer = plainToClass(User, task.developer)
+        tasks.push(_task);
+      }
+      this.alltasks = tasks;
+    }, (err) => {
+      console.log(err)
+    }); 
+  }
+  
 }

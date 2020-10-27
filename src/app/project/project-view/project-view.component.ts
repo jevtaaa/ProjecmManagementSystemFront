@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/model/project.model';
 import { Task } from 'src/app/model/task.model';
 import { User } from 'src/app/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
@@ -27,7 +28,8 @@ export class ProjectViewComponent implements OnInit {
   new: boolean;
 
 
-  constructor(private route: Router, private router: ActivatedRoute, private projectService: ProjectService, private userService: UserService, private toastr: ToastrService) { }
+  constructor(private route: Router, private router: ActivatedRoute, private projectService: ProjectService, 
+    private userService: UserService, private toastr: ToastrService, public authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -55,6 +57,14 @@ export class ProjectViewComponent implements OnInit {
   initForm() {
 
     if (this.new) {
+      if(this.authService.roleMatch(['ProjectManager']))
+      this.projectForm = new FormGroup({
+
+        project_name: new FormControl('', [Validators.required]),
+        project_manager: new FormControl({value: this.authService.loggedUser.username, disabled: true}, [Validators.required])
+
+      })
+      if(this.authService.roleMatch(['Admin']))
       this.projectForm = new FormGroup({
 
         project_name: new FormControl('', [Validators.required]),
@@ -75,7 +85,14 @@ export class ProjectViewComponent implements OnInit {
   editMode() {
     this.edit = !this.edit;
     this.edit ? this.projectForm.get('project_name').enable() : this.projectForm.get('project_name').disable();
-    this.edit ? this.projectForm.get('project_manager').enable() : this.projectForm.get('project_manager').disable();
+    if(this.authService.roleMatch(['ProjectManager'])){
+      this.projectForm.get('project_manager').disable();
+    }else{
+      this.edit ? this.projectForm.get('project_manager').enable() : this.projectForm.get('project_manager').disable();
+    }
+    if(this.new){
+      this.route.navigateByUrl('/home/project');
+    }
   }
 
   saveChanges() {
@@ -86,7 +103,7 @@ export class ProjectViewComponent implements OnInit {
         console.log(data);
         this.project.name = data.name;
         this.project.projectManager = plainToClass(User, data.projectManager);
-        this.toastr.success("", "Successfully edited!");
+        this.toastr.success("", "Successfully edited project!");
       })
     this.editMode();
   }
@@ -104,7 +121,7 @@ export class ProjectViewComponent implements OnInit {
         this.projectService.projects.push(p);
         this.project = data;
         this.edit = !this.edit;
-        this.toastr.success("", "Successfully saved!");
+        this.toastr.success("", "Successfully saved project!");
       })
   }
 
@@ -112,11 +129,22 @@ export class ProjectViewComponent implements OnInit {
   deleteProject() {
     this.projectService.deleteProject(this.project.id)
       .subscribe((data: any) => {
-        this.toastr.success("", "Successfully deleted!");
+        this.toastr.success("", "Successfully deleted project!");
         this.projectService.removeFromProjects(this.project);
       })
 
     this.route.navigateByUrl('home/project');
+  }
+
+  isEnableToDelete(){
+    if(this.authService.roleMatch(['ProjectManager'])){
+      return false;
+    }
+    return true;
+  }
+
+  showMessage(){
+    this.toastr.error("You are not enable to delete project", "Error");
   }
 }
 

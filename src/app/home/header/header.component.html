@@ -12,16 +12,16 @@
                 Projets
             </button>
         </div>
-        <div class="col-lg-1">
-            <button mat-button routerLink="users">
-                <mat-icon>assignment</mat-icon>
-                Tasks
-            </button>
-        </div>
         <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
             <button mat-button routerLink="users">
                 <mat-icon>group</mat-icon>
                 Users
+            </button>
+        </div>
+        <div class="col-lg-1">
+            <button mat-button routerLink="tasks" *ngIf="authServ.roleMatch(['Developer'])">
+                <mat-icon>assignment</mat-icon>
+                Tasks
             </button>
         </div>
         <div class="col-lg-1 offset-lg-7">

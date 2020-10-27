@@ -30,7 +30,7 @@ export class UserService {
 
   fetchAllUsers(){
 
-    if(!this.authService.roleMatch(['Admin'])){
+    if(!this.authService.roleMatch(['Admin', 'ProjectManager'])){
       return;
     }
 

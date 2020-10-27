@@ -40,6 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDeleteComponent } from './users/user-delete/user-delete.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { UserDeleteComponent } from './users/user-delete/user-delete.component';
     SingleUserComponent,
     UserNewComponent,
     UserEditComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

@@ -56,7 +56,7 @@ export class TableComponent implements OnInit {
 
     this.dialog.open(TaskDialogComponent, {
       data: { task: task, project: this.project },
-
+      width: '600px',
     });
   }
 }

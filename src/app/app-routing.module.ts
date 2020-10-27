@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProjectViewComponent } from './project/project-view/project-view.component';
 import { ProjectComponent } from './project/project.component';
+import { TasksComponent } from './tasks/tasks.component';
 import { UsersComponent } from './users/users.component';
 
 
@@ -47,6 +48,14 @@ const routes: Routes = [
         canActivate:[AuthGuard],
         data: {
           permittedRoles: ['Admin', 'ProjectManager']
+        }
+      },
+      {
+        path:'tasks',
+        component: TasksComponent,
+        canActivate:[AuthGuard],
+        data: {
+          permittedRoles: ['Developer']
         }
       }
     ]

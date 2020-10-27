@@ -3,6 +3,7 @@
         <div class="col">
             <p><strong><h2>Edit task:</h2></strong></p>
             <form [formGroup]="taskForm">
+                <div style="margin: 3%;">
                 <mat-form-field class="combobox">
                     <mat-label>Developer</mat-label>
                     <mat-select formControlName="assignee">
@@ -11,7 +12,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field style="margin-left: 3%;">
                     <mat-label>Status</mat-label>
                     <mat-select formControlName="status">
                         <mat-option *ngFor="let status of statuses" [value]="status">
@@ -19,17 +20,20 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+            </div>
+                <div style="margin-left: 3%; margin-top: 3%; margin-bottom: 3%; margin-right: 2%;">
                     Progress
-                <mat-slider formControlName="progress" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100"
-                    ></mat-slider>
-                <mat-form-field appearance="standard">
+                <mat-slider formControlName="progress" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="100">
+                    
+                </mat-slider>
+               
+                <mat-form-field appearance="standard" style="margin-left: 4%;">
                     <mat-label>Choose a deadline</mat-label>
                     <input formControlName="task_deadline" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="taskForm.get('task_deadline').invalid">Please enter task deadline</mat-error>-->
                 </mat-form-field>
-
+                </div>
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Description</mat-label>
                     <textarea formControlName="description" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
