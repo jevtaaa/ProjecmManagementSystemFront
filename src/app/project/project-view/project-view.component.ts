@@ -55,7 +55,7 @@ export class ProjectViewComponent implements OnInit {
   }
 
   initForm() {
-
+    
     if (this.new) {
       if(this.authService.roleMatch(['ProjectManager']))
       this.projectForm = new FormGroup({

@@ -25,7 +25,6 @@ export class SingleUserComponent implements OnInit {
   getExpansionData(): Task[] | Project[]{
 
     if(this.user.role ==='Developer'){
-     
       return this.projectService.getUsersTasks(this.user);
     }
     return this.projectService.getManagersProjects(this.user)

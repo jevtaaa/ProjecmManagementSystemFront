@@ -21,6 +21,8 @@ export class ProjectService {
   projectForCreate: Project;
   projectForEdit: Project;
   alltasks: Task[] = [];
+  devTasks: Task[] = [];
+  nullTask: Task[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -82,10 +84,17 @@ export class ProjectService {
 
   getUsersTasks(user: User) {
     let tasks: Task[] = [];
-    for (let project of this.projects) {
-      for (let task of project.tasks) {
+    if(this.authService.roleMatch(['ProjectManager'])){
+      for (let task of this.alltasks) {
         if (task.developer)
           task.developer.username === user.username ? tasks.push(task) : null;
+      }
+    }else{
+      for (let project of this.projects) {
+        for (let task of project.tasks) {
+          if (task.developer)
+            task.developer.username === user.username ? tasks.push(task) : null;
+        }
       }
     }
     return tasks;
@@ -126,6 +135,10 @@ export class ProjectService {
     return this.http.get(this.authService.ngrokUrl + 'task/all');
   }
 
+  private getDevTasks(devId: number) {
+    return this.http.get(this.authService.ngrokUrl + 'task/' + devId);
+  }
+
   public fetchAllTasks() {
     this.getAllTasks().subscribe((data:Task[]) => {
       var tasks = [];
@@ -139,5 +152,27 @@ export class ProjectService {
       console.log(err)
     }); 
   }
-  
+
+  fetchDeveloperTasks(id: number) {
+    this.getDevTasks(id).subscribe((data:Task[]) => {
+      var tasks = [];
+      var tasksNull = [];
+      for (let task of data) {
+        let _task: Task = plainToClass(Task, task);
+        if(task.developer!=null){
+          _task.developer = plainToClass(User, task.developer);
+          tasks.push(_task);
+        }
+        if(task.developer == null){
+          tasksNull.push(_task);
+        }
+      }
+      this.devTasks = tasks;
+      this.nullTask = tasksNull;
+      console.log(this.nullTask);
+      console.log(this.devTasks);
+    }, (err) => {
+      console.log(err)
+    }); 
+  }
 }

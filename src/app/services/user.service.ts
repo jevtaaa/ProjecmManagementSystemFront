@@ -33,7 +33,7 @@ export class UserService {
     if(!this.authService.roleMatch(['Admin', 'ProjectManager'])){
       return;
     }
-
+    
     this.getAllUsers().subscribe((data:User[])=>{
       const devs: User[]=[];
       const pms: User[]=[];
