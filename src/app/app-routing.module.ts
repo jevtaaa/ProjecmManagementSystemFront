@@ -16,49 +16,48 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-  path: 'login',
+    path: 'login',
     component: LoginComponent
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
+
+  },
+  {
+    path: 'project',
     children: [
       {
-        path: 'project',
-        children: [
-          {
-            path: '',
-            component: ProjectComponent,
-            canActivate: [AuthGuard],
-            data: {
-              permittedRoles: ['Admin', 'ProjectManager']
-            }
-          },
-          {
-            path: ':id',
-            component: ProjectViewComponent,
-            canActivate: [AuthGuard],
-          }
-        ]
-      },
-      {
-        path:'users',
-        component: UsersComponent,
-        canActivate:[AuthGuard],
+        path: '',
+        component: ProjectComponent,
+        canActivate: [AuthGuard],
         data: {
           permittedRoles: ['Admin', 'ProjectManager']
         }
       },
       {
-        path:'tasks',
-        component: TasksComponent,
-        canActivate:[AuthGuard],
-        data: {
-          permittedRoles: ['Developer']
-        }
+        path: ':id',
+        component: ProjectViewComponent,
+        canActivate: [AuthGuard],
       }
     ]
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permittedRoles: ['Admin', 'ProjectManager']
+    }
+  },
+  {
+    path: 'tasks',
+    component: TasksComponent,
+    canActivate: [AuthGuard],
+    data: {
+      permittedRoles: ['Developer']
+    }
   }
 ];
 
