@@ -17,4 +17,14 @@ export class ProjectItemComponent implements OnInit {
     this.panelOpenState = false;
   }
 
+  projectProgress() {
+    let progress = 0;
+
+    for (let task of this.project.tasks) {
+      progress += task.progress;
+    }
+
+    return progress / this.project.tasks.length;
+  }
+
 }

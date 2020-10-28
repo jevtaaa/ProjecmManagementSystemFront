@@ -12,7 +12,10 @@
             {{column| titlecase}}
           </th>
           <td mat-cell *matCellDef="let element">
-            <div *ngIf="column!=='remove' && column!='assignee' && column!='deadline'">
+            <div *ngIf="column==='progress'">
+              {{element.progress}}%
+            </div>
+            <div *ngIf="column==='id' || column==='status'">
               {{element[column]}}
             </div>
             <div *ngIf="column==='assignee'">
