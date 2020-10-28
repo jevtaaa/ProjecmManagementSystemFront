@@ -40,7 +40,7 @@ export class TaskDialogComponent implements OnInit {
 
     if (this.authService.roleMatch(['Admin', 'ProjectManager'])) {
       this.developers = this.userService.developers;
-
+      
     } else {
       this.developers = [this.data.task.developer];
     }
@@ -61,7 +61,7 @@ export class TaskDialogComponent implements OnInit {
       this.taskForm = new FormGroup({
 
         task_deadline: new FormControl('', [Validators.required]),
-        assignee: new FormControl('', []),
+        assignee: new FormControl(null, []),
         description: new FormControl('', [Validators.required]),
         status: new FormControl('', [Validators.required]),
         progress: new FormControl(0, [Validators.required])

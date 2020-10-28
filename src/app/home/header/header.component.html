@@ -24,7 +24,7 @@
                 Tasks
             </button>
         </div>
-        <div class="col-lg-2 offset-lg-6 text-right">
+        <div class="col-lg-2 offset-lg-6 text-left">
             <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
                 <mat-icon>logout</mat-icon>
                 Log Out, {{authServ.loggedUser.username}} ({{authServ.loggedUser.role}})

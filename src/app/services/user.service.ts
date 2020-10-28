@@ -49,7 +49,7 @@ export class UserService {
       }
       this.developers = devs;
       this.projectManagers = pms;
-      this.developers.push(null)
+      //this.developers.push(null)
 
     }, err =>{
       console.log(err);
