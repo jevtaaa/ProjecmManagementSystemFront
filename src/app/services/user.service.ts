@@ -93,4 +93,8 @@ export class UserService {
     }
   }
 
+  getLoggedUser(id: number){
+    return this.http.get(this.authService.ngrokUrl + 'account/logged');
+  }
+
 }

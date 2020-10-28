@@ -89,7 +89,6 @@ export class TaskDialogComponent implements OnInit {
     let task: Task = new Task(this.data.task.id, this.taskForm.value['status'],
       this.taskForm.value['progress'], new Date(this.taskForm.get('task_deadline').value),
       this.taskForm.value['description'], this.taskForm.get('assignee').value);
-      console.log(this.taskForm)
 
     this.service.updateTask(this.data.project.id, task)
       .subscribe((data: Task) => {
@@ -105,6 +104,17 @@ export class TaskDialogComponent implements OnInit {
             return item;
           });
         }
+
+        /*if(this.authService.roleMatch(['Developer'])){
+          for(let p of this.service.projects){
+          p.tasks = p.tasks.map(item => {
+            if (item.id == task.id) {
+              item = task;
+            }
+            return item;
+          });
+        }
+        }*/
         
         this.toastr.success("", "Successfully updated task!")
         this.service.dialog.close();
