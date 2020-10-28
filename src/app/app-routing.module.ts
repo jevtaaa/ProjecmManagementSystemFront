@@ -22,43 +22,47 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AuthGuard]
-
-  },
-  {
-    path: 'project',
-    children: [
+    canActivate: [AuthGuard],
+    children:[
       {
-        path: '',
-        component: ProjectComponent,
+        path: 'project',
+        children: [
+          {
+            path: '',
+            component: ProjectComponent,
+            canActivate: [AuthGuard],
+            data: {
+              permittedRoles: ['Admin', 'ProjectManager']
+            }
+          },
+          {
+            path: ':id',
+            component: ProjectViewComponent,
+            canActivate: [AuthGuard],
+          }
+        ]
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
         canActivate: [AuthGuard],
         data: {
           permittedRoles: ['Admin', 'ProjectManager']
         }
       },
       {
-        path: ':id',
-        component: ProjectViewComponent,
+        path: 'tasks',
+        component: TasksComponent,
         canActivate: [AuthGuard],
+        data: {
+          permittedRoles: ['Developer']
+        }
       }
+
     ]
-  },
-  {
-    path: 'users',
-    component: UsersComponent,
-    canActivate: [AuthGuard],
-    data: {
-      permittedRoles: ['Admin', 'ProjectManager']
-    }
-  },
-  {
-    path: 'tasks',
-    component: TasksComponent,
-    canActivate: [AuthGuard],
-    data: {
-      permittedRoles: ['Developer']
-    }
+
   }
+  
 ];
 
 @NgModule({
