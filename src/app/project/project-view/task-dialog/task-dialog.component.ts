@@ -38,7 +38,12 @@ export class TaskDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.roleMatch(['Admin', 'ProjectManager']) ? this.developers = this.userService.developers : this.developers = [this.data.task.developer];
+    if (this.authService.roleMatch(['Admin', 'ProjectManager'])) {
+      this.developers = this.userService.developers;
+
+    } else {
+      this.developers = [this.data.task.developer];
+    }
 
     this.initForm();
     console.log(this.data)
@@ -56,7 +61,7 @@ export class TaskDialogComponent implements OnInit {
       this.taskForm = new FormGroup({
 
         task_deadline: new FormControl('', [Validators.required]),
-        assignee: new FormControl('', [Validators.required]),
+        assignee: new FormControl('', []),
         description: new FormControl('', [Validators.required]),
         status: new FormControl('', [Validators.required]),
         progress: new FormControl(0, [Validators.required])
@@ -70,8 +75,8 @@ export class TaskDialogComponent implements OnInit {
       assignee: new FormControl({
         value: this.data.task.developer ? this.developers.find(x => x.username === this.data.task.developer.username) : null,
         disabled: !this.authService.roleMatch(['Admin', 'ProjectManager'])
-      }, [Validators.required]),
-      description: new FormControl( this.data.task.description, [Validators.required]),
+      }, []),
+      description: new FormControl(this.data.task.description, [Validators.required]),
       status: new FormControl(this.data.task.status, [Validators.required]),
       progress: new FormControl(this.data.task.progress, [Validators.required])
     });
@@ -95,8 +100,7 @@ export class TaskDialogComponent implements OnInit {
         let task: Task = plainToClass(Task, data);
         task.developer = plainToClass(User, data.developer);
 
-
-        if(!this.authService.roleMatch(['Developer'])){
+        if (!this.authService.roleMatch(['Developer'])) {
           this.tableService.tasks = this.tableService.tasks.map(item => {
             if (item.id == task.id) {
               item = task;
@@ -105,17 +109,6 @@ export class TaskDialogComponent implements OnInit {
           });
         }
 
-        /*if(this.authService.roleMatch(['Developer'])){
-          for(let p of this.service.projects){
-          p.tasks = p.tasks.map(item => {
-            if (item.id == task.id) {
-              item = task;
-            }
-            return item;
-          });
-        }
-        }*/
-        
         this.toastr.success("", "Successfully updated task!")
         this.service.dialog.close();
       }, (err) => {
@@ -134,8 +127,6 @@ export class TaskDialogComponent implements OnInit {
       this.taskForm.value['progress'], new Date(this.taskForm.value['task_deadline']),
       this.taskForm.value['description'], this.taskForm.value['assignee']);
 
-      
-
     this.service.saveTask(task, this.data.project.id).subscribe((data: Task) => {
 
       let task: Task = plainToClass(Task, data);
@@ -146,6 +137,7 @@ export class TaskDialogComponent implements OnInit {
       this.toastr.success("", "Successfully saved task!")
       this.service.dialog.close();
     }, (err) => {
+      console.log(err)
       if (err.error) {
         if (err.error.message) {
           this.toastr.error(err.error.message, "Error")

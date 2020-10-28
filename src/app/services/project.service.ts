@@ -21,7 +21,7 @@ export class ProjectService {
   projectForCreate: Project;
   projectForEdit: Project;
   alltasks: Task[] = [];
-  
+
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
@@ -82,12 +82,12 @@ export class ProjectService {
 
   getUsersTasks(user: User) {
     let tasks: Task[] = [];
-    if(this.authService.roleMatch(['ProjectManager'])){
+    if (this.authService.roleMatch(['ProjectManager'])) {
       for (let task of this.alltasks) {
         if (task.developer)
           task.developer.username === user.username ? tasks.push(task) : null;
       }
-    }else{
+    } else {
       for (let project of this.projects) {
         for (let task of project.tasks) {
           if (task.developer)
@@ -105,7 +105,7 @@ export class ProjectService {
   saveTask(task: Task, projectId: number) {
     const httpBody = {
       "status": task.status,
-      "developerid": task.developer.id,
+      "developerid": task.developer ? task.developer.id : null,
       "progress": task.progress,
       "deadline": task.deadline,
       "description": task.description
@@ -121,7 +121,7 @@ export class ProjectService {
   updateTask(projectId: number, task: Task) {
     const httpBody = {
       "status": task.status,
-      "developerid": task.developer.id,
+      "developerid": task.developer? task.developer.id : null,
       "progress": task.progress,
       "deadline": task.deadline,
       "description": task.description
@@ -138,7 +138,7 @@ export class ProjectService {
   }
 
   public fetchAllTasks() {
-    this.getAllTasks().subscribe((data:Task[]) => {
+    this.getAllTasks().subscribe((data: Task[]) => {
       var tasks = [];
       for (let task of data) {
         let _task: Task = plainToClass(Task, task);
@@ -148,26 +148,26 @@ export class ProjectService {
       this.alltasks = tasks;
     }, (err) => {
       console.log(err)
-    }); 
+    });
   }
 
   fetchDeveloperTasks(id: number) {
-    
-    this.getDevTasks(id).subscribe((data:Project[]) => {
+
+    this.getDevTasks(id).subscribe((data: Project[]) => {
       console.log(data)
       this.projects = []
-      
-      for(let project of data){
+
+      for (let project of data) {
         var tasks = [];
-        for( let task of project.tasks){
+        for (let task of project.tasks) {
           tasks.push(plainToClass(Task, task));
         }
 
         this.projects.push(new Project(project.id, project.name, plainToClass(User, project.projectManager), tasks));
       }
-     
+
     }, (err) => {
       console.log(err)
-    }); 
+    });
   }
 }

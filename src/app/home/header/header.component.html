@@ -1,24 +1,24 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-1 col-6">
             <button mat-button routerLink="">
                 <mat-icon>home</mat-icon>
                 Home
             </button>
         </div>
-        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
+        <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
             <button mat-button routerLink="project">
                 <mat-icon>pending_actions</mat-icon>
                 Projets
             </button>
         </div>
-        <div class="col-lg-1" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
+        <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
             <button mat-button routerLink="users">
                 <mat-icon>group</mat-icon>
                 Users
             </button>
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-1 col-6">
             <button mat-button routerLink="tasks" *ngIf="authServ.roleMatch(['Developer'])">
                 <mat-icon>assignment</mat-icon>
                 Tasks

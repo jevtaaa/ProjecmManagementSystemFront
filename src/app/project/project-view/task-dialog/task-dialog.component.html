@@ -8,7 +8,7 @@
                     <mat-label>Developer</mat-label>
                     <mat-select formControlName="assignee">
                         <mat-option *ngFor="let developer of developers" [value]="developer">
-                            {{developer.name}} {{developer.surname}}
+                            {{developer? developer.name : 'Bez'}} {{developer? developer.surname : 'Developera'}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

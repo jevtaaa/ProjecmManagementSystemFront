@@ -60,7 +60,7 @@ export class ProjectViewComponent implements OnInit {
 
     if (this.new) {
 
-      if (this.authService.roleMatch(['Admin']))
+      if (this.authService.roleMatch(['Admin','ProjectManager']))
         this.projectForm = new FormGroup({
 
           project_name: new FormControl('', [Validators.required]),
@@ -110,9 +110,10 @@ export class ProjectViewComponent implements OnInit {
   }
 
   saveProject() {
-    let projectManager: User[] = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value));
+    let projectManager: User = this.projectForm.controls.project_manager.value;
     let name = this.projectForm.controls.project_name.value;
-    this.projectService.saveProject(projectManager[0].id, name)
+    console.log(projectManager)
+    this.projectService.saveProject(projectManager.id, name)
       .subscribe((data: Project) => {
         console.log(data);
         var projectM = plainToClass(User, data.projectManager);

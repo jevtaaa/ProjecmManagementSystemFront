@@ -24,7 +24,7 @@ export class ProjectItemComponent implements OnInit {
       progress += task.progress;
     }
 
-    return progress / this.project.tasks.length;
+    return this.project.tasks.length === 0 ? 0 : (progress / this.project.tasks.length);
   }
 
 }
