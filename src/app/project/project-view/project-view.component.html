@@ -10,7 +10,7 @@
                 <mat-form-field>
                     <mat-label>Project manager</mat-label>
                     <mat-select formControlName="project_manager">
-                        <mat-option *ngFor="let pm of projectManagers" [value]="pm.username">
+                        <mat-option *ngFor="let pm of projectManagers" [value]="pm">
                             {{pm.username}}
                         </mat-option>
                     </mat-select>

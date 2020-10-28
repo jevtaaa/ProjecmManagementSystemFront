@@ -68,7 +68,7 @@ export class TaskDialogComponent implements OnInit {
     this.taskForm = new FormGroup({
       task_deadline: new FormControl({ value: this.data.task.deadline, disabled: !this.authService.roleMatch(['Admin', 'ProjectManager']) }, [Validators.required]),
       assignee: new FormControl({
-        value: this.developers.find(x => x.username === this.data.task.developer.username),
+        value: this.data.task.developer ? this.developers.find(x => x.username === this.data.task.developer.username) : null,
         disabled: !this.authService.roleMatch(['Admin', 'ProjectManager'])
       }, [Validators.required]),
       description: new FormControl( this.data.task.description, [Validators.required]),
