@@ -18,13 +18,13 @@
                 Users
             </button>
         </div>
-        <div class="col-lg-1 col-6">
-            <button mat-button routerLink="tasks" *ngIf="authServ.roleMatch(['Developer'])">
+        <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Developer'])">
+            <button mat-button routerLink="tasks">
                 <mat-icon>assignment</mat-icon>
                 Tasks
             </button>
         </div>
-        <div class="col-lg-2 offset-lg-6 text-left">
+        <div class="col-lg-2 offset-lg-7 text-left">
             <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
                 <mat-icon>logout</mat-icon>
                 Log Out, {{authServ.loggedUser.username}} ({{authServ.loggedUser.role}})
