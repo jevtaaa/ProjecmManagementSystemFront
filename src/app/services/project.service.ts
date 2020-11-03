@@ -154,7 +154,7 @@ export class ProjectService {
   fetchDeveloperTasks(id: number) {
 
     this.getDevTasks(id).subscribe((data: Project[]) => {
-      console.log(data)
+      
       this.projects = []
 
       for (let project of data) {

@@ -22,7 +22,7 @@ export class ProjectViewComponent implements OnInit {
 
   projectForm: FormGroup;
   projectManagers: User[] = [];
-  selectedValue: string;
+  //selectedValue: string;
   project: Project;
   edit: boolean;
   new: boolean;
@@ -32,10 +32,6 @@ export class ProjectViewComponent implements OnInit {
     private userService: UserService, private toastr: ToastrService, public authService: AuthService) { }
 
   ngOnInit(): void {
-
-    if (this.projectService.projects == null || this.projectService.projects == undefined) {
-      this.route.navigateByUrl('/home');
-    }
 
     this.edit = false;
   
@@ -52,12 +48,14 @@ export class ProjectViewComponent implements OnInit {
       }
 
     });
-
+    
     this.initForm();
   }
 
   initForm() {
-
+    if((this.project==null || this.project == undefined) && !this.new){
+      this.route.navigateByUrl('/home');
+    }
     if (this.new) {
 
       if (this.authService.roleMatch(['Admin','ProjectManager']))
@@ -97,11 +95,16 @@ export class ProjectViewComponent implements OnInit {
   }
 
   saveChanges() {
-    let projectManager: User[] = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value));
+    let projectManager: User;
+    if(this.authService.roleMatch(['ProjectManager'])){
+      projectManager = this.projectManagers[0];
+    }else{
+      projectManager = (this.userService.projectManagers.filter(x => x.username == this.projectForm.controls.project_manager.value.username))[0];
+    }  
+
     let name = this.projectForm.controls.project_name.value;
-    this.projectService.updateProject(this.project.id, projectManager[0].id, name)
+    this.projectService.updateProject(this.project.id, projectManager.id, name)
       .subscribe((data: any) => {
-        console.log(data);
         this.project.name = data.name;
         this.project.projectManager = plainToClass(User, data.projectManager);
         this.toastr.success("", "Successfully edited project!");
@@ -131,8 +134,8 @@ export class ProjectViewComponent implements OnInit {
   deleteProject() {
     this.projectService.deleteProject(this.project.id)
       .subscribe((data: any) => {
-        this.toastr.success("", "Successfully deleted project!");
         this.projectService.removeFromProjects(this.project);
+        this.toastr.success("", "Successfully deleted project!");
       })
 
     this.route.navigateByUrl('home/project');

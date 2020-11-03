@@ -22,8 +22,8 @@ export class TasksComponent implements OnInit {
       }
     }
 
-    console.log(this.devTasks)
-    console.log(this.nullTasks)
+    // console.log(this.devTasks)
+    // console.log(this.nullTasks)
 
     
   }
@@ -37,8 +37,4 @@ export class TasksComponent implements OnInit {
 
     return null;
   }
-
-  
-
-
 }

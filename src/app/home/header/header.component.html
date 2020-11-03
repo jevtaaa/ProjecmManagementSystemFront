@@ -1,31 +1,31 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-1 col-6">
-            <button mat-button routerLink="">
+            <button mat-button routerLink="" color="primary">
                 <mat-icon>home</mat-icon>
                 Home
             </button>
         </div>
         <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
-            <button mat-button routerLink="project">
+            <button mat-button routerLink="project" color="primary">
                 <mat-icon>pending_actions</mat-icon>
                 Projets
             </button>
         </div>
         <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Admin','ProjectManager'])">
-            <button mat-button routerLink="users">
+            <button mat-button routerLink="users" color="primary">
                 <mat-icon>group</mat-icon>
                 Users
             </button>
         </div>
         <div class="col-lg-1 col-6" *ngIf="authServ.roleMatch(['Developer'])">
-            <button mat-button routerLink="tasks">
+            <button mat-button routerLink="tasks" color="primary">
                 <mat-icon>assignment</mat-icon>
                 Tasks
             </button>
         </div>
         <div class="col-lg-2 offset-lg-7 text-left">
-            <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()">
+            <button mat-button (click)="authServ.logOut()" *ngIf="authServ.isAuth()" color="primary">
                 <mat-icon>logout</mat-icon>
                 Log Out, {{authServ.loggedUser.username}} ({{authServ.loggedUser.role}})
             </button>

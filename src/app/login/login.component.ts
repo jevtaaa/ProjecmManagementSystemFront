@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       data.token = null;
       this.authService.loggedUser = plainToClass(User, data);
       
-      console.log(this.authService.loggedUser);
+      // console.log(this.authService.loggedUser);
       this.toastr.success("Welcome " + this.authService.loggedUser.username+"", "Successfully login.");
       this.router.navigateByUrl('/home');
     },(err) => {

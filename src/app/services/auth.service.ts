@@ -46,7 +46,6 @@ export class AuthService {
 
     getIdFromToken() {
         var payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
-        console.log(payload.unique_name);
         return payload.unique_name;
     }
 
