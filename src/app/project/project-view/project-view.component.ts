@@ -136,9 +136,8 @@ export class ProjectViewComponent implements OnInit {
       .subscribe((data: any) => {
         this.projectService.removeFromProjects(this.project);
         this.toastr.success("", "Successfully deleted project!");
-      })
-
-    this.route.navigateByUrl('home/project');
+        this.route.navigateByUrl('home/project');
+      });
   }
 
   isEnableToDelete() {
