@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserNewComponent implements OnInit {
 
-  roles: string[] = ["Developer", "Project Manager", "Admin"];
+  roles: string[] = ["Developer", "Project Manager"];
   userNewForm: FormGroup;
   
   

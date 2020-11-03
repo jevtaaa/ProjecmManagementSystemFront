@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserEditComponent implements OnInit {
 
-  roles: string[] = ["Developer", "Project Manager", "Admin"];
+  roles: string[] = ["Developer", "Project Manager"];
   userEditForm: FormGroup;
 
   constructor(private userService: UserService, @Inject(MAT_DIALOG_DATA) public data: { user: User },
@@ -48,19 +48,29 @@ export class UserEditComponent implements OnInit {
       var user = plainToClass(User, data);
 
       if(user.role == "ProjectManager"){
-        this.userService.projectManagers = this.userService.projectManagers.map(item => {
-          if(item.id == user.id){
-            item = user;
-          }
-          return item;
-        });
+        if(this.data.user.role == "Developer"){
+          this.userService.removeFromUsers(this.data.user);
+          this.userService.projectManagers.push(user);
+        }else{
+          this.userService.projectManagers = this.userService.projectManagers.map(item => {
+            if(item.id == user.id){
+              item = user;
+            }
+            return item;
+          });
+        }   
       }else if (user.role == "Developer"){
-        this.userService.developers = this.userService.developers.map(item => {
-          if(item.id == user.id){
-            item = user;
-          }
-          return item;
-        });
+        if(this.data.user.role == "ProjectManager"){
+          this.userService.removeFromUsers(this.data.user);
+          this.userService.developers.push(user);
+        }else{
+          this.userService.developers = this.userService.developers.map(item => {
+            if(item.id == user.id){
+              item = user;
+            }
+            return item;
+          });
+        }
       }
       this.toastr.success("","Successfully updated user!")
       this.userService.dialogEdit.close();

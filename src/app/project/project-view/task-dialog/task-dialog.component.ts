@@ -46,7 +46,7 @@ export class TaskDialogComponent implements OnInit {
     }
 
     this.initForm();
-    console.log(this.data)
+    
 
   }
 

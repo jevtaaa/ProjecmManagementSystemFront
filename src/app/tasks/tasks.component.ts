@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/task.model';
+import { AuthService } from '../services/auth.service';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class TasksComponent implements OnInit {
   constructor(public projectService: ProjectService) { }
 
   ngOnInit(): void {
-
+    
     for (let project of this.projectService.projects) {
       for (let task of project.tasks) {
         task.developer!==null ? this.devTasks.push(task) : this.nullTasks.push(task);

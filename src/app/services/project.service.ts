@@ -18,8 +18,8 @@ export class ProjectService {
 
   dialog: MatDialogRef<TaskDialogComponent>;
   projects: Project[] = []
-  projectForCreate: Project;
-  projectForEdit: Project;
+  //projectForCreate: Project;
+  //projectForEdit: Project;
   alltasks: Task[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
@@ -151,7 +151,7 @@ export class ProjectService {
     });
   }
 
-  fetchDeveloperTasks(id: number) {
+  public fetchDeveloperTasks(id: number) {
 
     this.getDevTasks(id).subscribe((data: Project[]) => {
       
