@@ -107,6 +107,18 @@ export class TaskDialogComponent implements OnInit {
             }
             return item;
           });
+        }else{
+          for (let project of this.service.projects) {
+            for (let t of project.tasks) {
+              if(t.id === task.id) {
+                t.developer = task.developer;
+                t.description = task.description;
+                t.deadline = task.deadline;
+                t.progress = task.progress;
+                t.status = task.status;
+              }
+            }
+          }
         }
 
         this.toastr.success("", "Successfully updated task!")
